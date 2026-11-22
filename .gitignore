@@ -1,0 +1,12 @@
+# build trees
+build/
+build-*/
+cmake-build-*/
+compile_commands.json
+
+# editor and os files
+.cache/
+.idea/
+.vscode/
+*.swp
+.DS_Store
