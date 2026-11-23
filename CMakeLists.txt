@@ -25,22 +25,26 @@ if(PROJECT_IS_TOP_LEVEL AND NOT CMAKE_CONFIGURATION_TYPES
   set(CMAKE_BUILD_TYPE Release CACHE STRING "build type" FORCE)
 endif()
 
-option(HCAPTCHA_BUILD_EXAMPLES "build the hcaptcha-civue examples"
+option(HCAPTCHA_BUILD_EXAMPLES "build the examples"
   ${PROJECT_IS_TOP_LEVEL})
 
-#   FetchContent_Declare(civue
-#     GIT_REPOSITORY https://code.vexcited.com/ciko/civue.git
-#     GIT_TAG main)
 include(FetchContent)
 if(NOT TARGET civue::civue)
+  if(NOT FETCHCONTENT_SOURCE_DIR_CIVUE
+    AND EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/../ciko-civue/CMakeLists.txt)
+    set(FETCHCONTENT_SOURCE_DIR_CIVUE ${CMAKE_CURRENT_SOURCE_DIR}/../ciko-civue
+      CACHE PATH "civue checkout")
+  endif()
+
   if(NOT FETCHCONTENT_SOURCE_DIR_CILO
     AND EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/../ciko-cilo/CMakeLists.txt)
     set(FETCHCONTENT_SOURCE_DIR_CILO ${CMAKE_CURRENT_SOURCE_DIR}/../ciko-cilo
-      CACHE PATH "the cilo checkout")
+      CACHE PATH "cilo checkout")
   endif()
 
   FetchContent_Declare(civue
-    SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../ciko-civue)
+    GIT_REPOSITORY https://code.vexcited.com/ciko/civue.git
+    GIT_TAG main)
   FetchContent_MakeAvailable(civue)
 endif()
 
