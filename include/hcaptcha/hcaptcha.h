@@ -61,7 +61,8 @@ typedef struct hcaptcha hcaptcha;
 // starts loading the challenge of `o`, whose strings are copied. hcaptcha
 // runs invisible: it asks nothing of a user it trusts, and the status goes
 // from loading to solved.
-[[gnu::returns_nonnull]] hcaptcha *hcaptcha_new(const hcaptcha_options *o);
+[[nodiscard, gnu::returns_nonnull]]
+hcaptcha *hcaptcha_new(const hcaptcha_options *o);
 void hcaptcha_free(hcaptcha *h);
 // shows the challenge over `r` for this frame while it loads or is open,
 // centered in it, the rest of `r` left as the app painted it. made for a

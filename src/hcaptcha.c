@@ -22,7 +22,8 @@ struct hcaptcha {
   double since;
 };
 
-static void turn(hcaptcha *h, hcaptcha_status status, const char *text) {
+[[gnu::cold]] static void turn(hcaptcha *h, hcaptcha_status status,
+                              const char *text) {
   free(h->token);
   free(h->error);
   h->token = nullptr;
@@ -97,7 +98,7 @@ static hcaptcha_state state_of(const hcaptcha *h) {
 hcaptcha *hcaptcha_new(const hcaptcha_options *o) {
   hcaptcha *h = calloc(1, sizeof *h);
 
-  if (!h) {
+  if (!h) [[clang::unlikely]] {
     abort();
   }
 

@@ -11,11 +11,11 @@ typedef struct {
 } Text;
 
 static void put_n(Text *t, const char *s, size_t n) {
-  if (t->len + n + 1 > t->cap) {
+  if (t->len + n + 1 > t->cap) [[clang::unlikely]] {
     t->cap = (t->len + n + 1) * 2;
     t->v = realloc(t->v, t->cap);
 
-    if (!t->v) {
+    if (!t->v) [[clang::unlikely]] {
       abort();
     }
   }
