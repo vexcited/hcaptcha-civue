@@ -1,3 +1,4 @@
+#include <stddefer.h>
 #include <stdio.h>
 #include <string.h>
 
@@ -109,6 +110,8 @@ int main(int argc, char **argv) {
                 .theme = "dark"},
     .printed = -1,
   };
+  defer hcaptcha_free(demo.captcha);
+
   int at = 1;
   bool open = argc > at && !strcmp(argv[at], "--open");
 
@@ -132,7 +135,5 @@ int main(int argc, char **argv) {
   };
 
   civue_window_run(&options, make, &demo);
-  hcaptcha_free(demo.captcha);
-
   return 0;
 }

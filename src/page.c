@@ -1,5 +1,6 @@
 #include "page.h"
 
+#include <stdcountof.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -48,7 +49,7 @@ static void put_json(Text *t, const char *s) {
     }
     else if (*c < 0x20 || strchr("\"\\<>&'", *c)) {
       char escaped[8];
-      snprintf(escaped, sizeof escaped, "\\u%04x", *c);
+      snprintf(escaped, countof(escaped), "\\u%04x", *c);
       put(t, escaped);
     }
     else {
@@ -163,12 +164,12 @@ static const char rest[] =
 char *hcaptcha__page(const hcaptcha_options *o) {
   Text t = {};
 
-  put(&t, head);
+  put_n(&t, head, countof(head) - 1);
   put_field(&t, "sitekey", o->sitekey);
   put_field(&t, "rqdata", o->rqdata);
   put_field(&t, "theme", o->theme);
   put_field(&t, "language", o->language);
-  put(&t, rest);
+  put_n(&t, rest, countof(rest) - 1);
 
   return t.v;
 }
