@@ -28,20 +28,17 @@ endif()
 option(HCAPTCHA_BUILD_EXAMPLES "build the examples"
   ${PROJECT_IS_TOP_LEVEL})
 
+# a parent project may already provide civue, otherwise it is fetched with
+# cilo, from checkouts next to this one when there are.
 include(FetchContent)
+foreach(lib civue cilo)
+  string(TOUPPER ${lib} LIB)
+  get_filename_component(local ${CMAKE_CURRENT_SOURCE_DIR}/../ciko-${lib} ABSOLUTE)
+  if(NOT FETCHCONTENT_SOURCE_DIR_${LIB} AND EXISTS ${local}/CMakeLists.txt)
+    set(FETCHCONTENT_SOURCE_DIR_${LIB} ${local})
+  endif()
+endforeach()
 if(NOT TARGET civue::civue)
-  if(NOT FETCHCONTENT_SOURCE_DIR_CIVUE
-    AND EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/../ciko-civue/CMakeLists.txt)
-    set(FETCHCONTENT_SOURCE_DIR_CIVUE ${CMAKE_CURRENT_SOURCE_DIR}/../ciko-civue
-      CACHE PATH "civue checkout")
-  endif()
-
-  if(NOT FETCHCONTENT_SOURCE_DIR_CILO
-    AND EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/../ciko-cilo/CMakeLists.txt)
-    set(FETCHCONTENT_SOURCE_DIR_CILO ${CMAKE_CURRENT_SOURCE_DIR}/../ciko-cilo
-      CACHE PATH "cilo checkout")
-  endif()
-
   FetchContent_Declare(civue
     GIT_REPOSITORY https://code.vexcited.com/ciko/civue.git
     GIT_TAG main)
