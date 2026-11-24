@@ -9,11 +9,16 @@ endif()
 
 project(demo VERSION 0.0.0 LANGUAGES C)
 
-# it brings civue with it.
+# this checkout when the example is in it, otherwise it is fetched.
 include(FetchContent)
+get_filename_component(local ${CMAKE_CURRENT_SOURCE_DIR}/../.. ABSOLUTE)
+if(NOT FETCHCONTENT_SOURCE_DIR_HCAPTCHA-CIVUE AND EXISTS ${local}/CMakeLists.txt)
+  set(FETCHCONTENT_SOURCE_DIR_HCAPTCHA-CIVUE ${local})
+endif()
 if(NOT TARGET hcaptcha::civue)
   FetchContent_Declare(hcaptcha-civue
-    SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../..)
+    GIT_REPOSITORY https://code.vexcited.com/hcaptcha/civue.git
+    GIT_TAG main)
   FetchContent_MakeAvailable(hcaptcha-civue)
 endif()
 
