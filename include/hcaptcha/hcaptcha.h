@@ -30,13 +30,13 @@ typedef enum : uint8_t {
 } hcaptcha_status;
 
 typedef struct {
-  // the site's key. discord's comes with each challenge, `captcha_sitekey`.
+  // the site's key.
   const char *sitekey;
-  // the site the key belongs to, like "https://discord.com": the page
+  // the site the key belongs to, like "https://example.com": the page
   // believes it is on it.
   const char *origin;
-  // hcaptcha enterprise's request data, discord's `captcha_rqdata`, which
-  // must be passed when it is given. none when null.
+  // hcaptcha enterprise's request data, which must be passed when the site
+  // gives one. none when null.
   const char *rqdata;
   // "dark" or "light", hcaptcha's own choice when null.
   const char *theme;
