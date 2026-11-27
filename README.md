@@ -2,7 +2,7 @@ An hCaptcha challenge for [Civue](https://code.vexcited.com/ciko/civue) apps.
 
 [hCaptcha](https://www.hcaptcha.com) is a drop-replacement for reCAPTCHA that protects user privacy, rewards websites, and helps companies get their data labeled.
 
-The challenge is hCaptcha's own page in a `civue_webview`, so only macOS is supported for now.
+The challenge is hCaptcha's own page in a `civue_webview`, so only macOS and Windows are supported for now.
 
 1. [Installation](#installation)
 2. [Implementation](#implementation)
@@ -23,6 +23,10 @@ target_link_libraries(app PRIVATE hcaptcha::civue)
 ```
 
 Civue is fetched along with it, unless a `civue::civue` target already exists or a `ciko-civue` checkout sits next to this one.
+
+### Windows
+
+The page runs in WebView2, the Edge runtime that Windows 11 ships. Civue finds the installed runtime itself, so the app ships nothing more, though a `WebView2Loader.dll` placed next to the executable is used when there is one. Building takes `WebView2.h`, which MSYS2 has in its `webview2-loader` package, `mingw-w64-clang-aarch64-webview2-loader` for `CLANGARM64` and `mingw-w64-clang-x86_64-webview2-loader` for `CLANG64`.
 
 ### Building
 

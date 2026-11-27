@@ -11,8 +11,8 @@ extern "C" {
 /* an hcaptcha challenge over a rect of a civue frame, headless like civue's  */
 /* widgets: a call each frame it is wanted answers with its state and the app */
 /* paints what is around it, a card, a spinner or an error. the challenge is  */
-/* hcaptcha's own page in a civue_webview, so macos only for now. everything  */
-/* here runs on the main thread.                                              */
+/* hcaptcha's own page in a civue_webview, so macos and windows for now.      */
+/* everything here runs on the main thread.                                   */
 /* ========================================================================== */
 
 typedef enum : uint8_t {
